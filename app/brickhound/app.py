@@ -5108,7 +5108,8 @@ def api_browse_resources_by_type():
     """Get all resources of a specific type"""
     try:
         data = request.get_json() or {}
-        resource_type = RESOURCE_TYPE_MAP.get(data.get('resource_type', ''), '')
+        raw_type = data.get('resource_type', '')
+        resource_type = RESOURCE_TYPE_MAP.get(raw_type, raw_type)
         run_id = get_current_run_id()
 
         if not resource_type:
