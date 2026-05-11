@@ -261,6 +261,8 @@ response = requests.post(
 exists = False
 
 if 'ALREADY_EXISTS' not in response.text:
+    if response.status_code != 200:
+        raise Exception(f"Dashboard creation failed with status {response.status_code}: {response.text}")
     json_response = response.json()
     dashboard_id = json_response['dashboard_id']
     serialized_dashboard = json_response['serialized_dashboard']
