@@ -190,8 +190,9 @@ while True:
             break
 
     if response.status_code != 200:
-        print(f"Failed to list dashboards: {response.status_code} {response.text}")
-        break
+        raise RuntimeError(
+            f"Failed to list dashboards after retries: {response.status_code} {response.text}"
+        )
 
     json_response = response.json()
     dashboards = json_response.get('dashboards', [])
